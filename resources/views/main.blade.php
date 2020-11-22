@@ -9,7 +9,7 @@
 <body>
     <div id="app">
         <navbar-component></navbar-component>
-        <example-component></example-component>
+        <router-view></router-view>
         <footer-component></footer-component>
     </div>
 <script src="{{ asset('js/app.js')}}"></script>

@@ -1,6 +1,9 @@
 <?php
 
+use Facade\FlareClient\Middleware\AnonymizeIp;
 use Illuminate\Support\Facades\Route;
+
+use function PHPUnit\Framework\callback;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,6 +17,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
+    return view('main');
+});
+Route::any('/{slug}', function () {
     return view('main');
 });
 
