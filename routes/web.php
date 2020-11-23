@@ -1,9 +1,7 @@
 <?php
 
-use Facade\FlareClient\Middleware\AnonymizeIp;
 use Illuminate\Support\Facades\Route;
 
-use function PHPUnit\Framework\callback;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,14 +17,7 @@ use function PHPUnit\Framework\callback;
 Route::get('/', function () {
     return view('main');
 });
-Route::any('/{slug}', function () {
+
+Route::get('/{any}', function () {
     return view('main');
-});
-
-Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+})->where('any', '.*');

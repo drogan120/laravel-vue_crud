@@ -1,10 +1,7 @@
 require("./bootstrap");
 
-window.Vue = require("vue");
-
-import VueRouter from "vue-router";
-Vue.use(VueRouter);
-
+import Vue from 'vue';
+import router from './routers';
 
 Vue.component(
     "example-component",
@@ -18,27 +15,6 @@ Vue.component(
     "footer-component",
     require("./components/FooterComponent.vue").default
 );
-
-const routes = [
-    {
-        path: "/",
-        component: require("./pages/Home.vue").default
-    },
-    {
-        path: "/about",
-        component: require("./pages/About.vue").default
-
-    },
-    {
-        path:'*',
-        component:require("./pages/Notfound.vue").default
-    }
-];
-
-const router = new VueRouter({
-    mode: "history",
-    routes
-});
 
 const app = new Vue({
     el: "#app",
