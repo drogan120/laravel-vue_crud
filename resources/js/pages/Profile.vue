@@ -10,27 +10,14 @@
                             <th>Nama</th>
                             <th>Email</th>
                             <th>Address</th>
-                            <th colspan="2">Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="user in users">
+                        <tr v-if="id">
                             <td>*</td>
                             <td>{{ user.name }}</td>
                             <td>{{ user.email }}</td>
                             <td>{{ user.address }}</td>
-                            <td>
-                                <router-link
-                                    :to="profile_uri(user.id)"
-                                    class="btn btn-info text-white"
-                                    >Detail</router-link
-                                >
-                            </td>
-                            <td>
-                                <a :to="profile_uri()" class="btn btn-danger"
-                                    >Delete</a
-                                >
-                            </td>
                         </tr>
                     </tbody>
                 </table>
@@ -41,9 +28,10 @@
 
 <script>
 export default {
+    props: ['id'],
     data () {
         return {
-            users: [],
+            user: [],
         }
     },
     mounted () {
@@ -51,13 +39,13 @@ export default {
     },
     methods: {
         showUsers () {
-            axios.get('/api/users')
-                .then(result => this.users = result.data)
+            axios.get('/api/users/' + this.id)
+                .then(result => {
+                    this.user = result.data
+                    console.log(result.data)
+                })
                 .catch((err) => { console.log(err) })
         },
-        profile_uri (id) {
-            return '/users/' + id
-        }
     }
 }
 </script>

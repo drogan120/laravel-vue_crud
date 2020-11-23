@@ -17,6 +17,11 @@ const routes = [
         component: require("../pages/Users.vue").default
     },
     {
+        path: "/users/:id",
+        props: true,
+        component: require("../pages/Profile.vue").default
+    },
+    {
         path: "*",
         component: require("../pages/Notfound.vue").default
     }

@@ -2,14 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
     public function index()
     {
-        $user = DB::table('users')->get();
+        $user = User::all();
+        return response()->json($user);
+    }
+
+    public function show($id)
+    {
+        $user =  User::FindorFail($id);
         return response()->json($user);
     }
 }
