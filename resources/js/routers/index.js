@@ -14,12 +14,16 @@ const routes = [
     },
     {
         path: "/users",
-        component: require("../pages/Users.vue").default
+        component: require("../pages/users/Users.vue").default
+    },
+    {
+        path: "/new/users",
+        component: require("../pages/users/newUsers.vue").default
     },
     {
         path: "/users/:id",
         props: true,
-        component: require("../pages/Profile.vue").default
+        component: require("../pages/users/Profile.vue").default
     },
     {
         path: "*",

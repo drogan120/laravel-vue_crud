@@ -18,4 +18,8 @@ class UserController extends Controller
         $user =  User::FindorFail($id);
         return response()->json($user);
     }
+
+    public function store(Request $request){
+        dd($request);
+    }
 }
