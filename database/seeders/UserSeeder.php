@@ -17,7 +17,7 @@ class UserSeeder extends Seeder
 
     public function run()
     {
-        for ($i = 0; $i < 50; $i++) {
+        for ($i = 0; $i <= 100; $i++) {
             $faker = Faker::create();
             DB::table('users')->insert([
                 'name' => $faker->name,

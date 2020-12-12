@@ -3,7 +3,9 @@
     <div class="card shadow">
       <div class="card-body">
         <h4 class="text-secondary text-center mt-3 mb-3">Users List</h4>
-        <router-link to="/new/users" class="btn btn-info text-light mt-3 mb-3">New User</router-link>
+        <router-link to="/new/users" class="btn btn-info text-light mt-3 mb-3"
+          >New User</router-link
+        >
         <table class="table table-hover">
           <thead class="thead-dark">
             <tr>
@@ -28,7 +30,16 @@
                 >
               </td>
               <td>
-                <a :to="profile_uri()" class="btn btn-danger">Delete</a>
+                <form v-on:submit.prevent>
+                  <input type="text" name="id" :value="user.id" />
+                  <button
+                    type="submit"
+                    @click="deleteUser(user.id)"
+                    class="btn btn-danger"
+                  >
+                    Delete
+                  </button>
+                </form>
               </td>
             </tr>
           </tbody>
@@ -42,6 +53,7 @@
 export default {
   data () {
     return {
+      delete: [],
       users: [],
     }
   },
@@ -49,13 +61,18 @@ export default {
     this.showUsers()
   },
   methods: {
-    showUsers () {
-      axios.get('/api/users')
+    async showUsers () {
+      await axios.get('/api/users')
         .then(result => this.users = result.data)
         .catch((err) => { console.log(err) })
     },
     profile_uri (id) {
-      return '/users/' + id
+      return `/users/${id}`
+    },
+    async deleteUser (id) {
+      await axios.delete(`/api/users/${id}`)
+        .then((res) => { alert(`data has been deleted`) ;this.showUsers() })
+        .catch(err => console.log(err))
     }
   }
 }

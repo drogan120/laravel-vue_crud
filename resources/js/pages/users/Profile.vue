@@ -38,8 +38,8 @@ export default {
         this.showUsers()
     },
     methods: {
-        showUsers () {
-            axios.get('/api/users/' + this.id)
+        async showUsers () {
+           await axios.get('/api/users/' + this.id)
                 .then(result => {
                     this.user = result.data
                     console.log(result.data)

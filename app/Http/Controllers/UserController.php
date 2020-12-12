@@ -22,4 +22,9 @@ class UserController extends Controller
     public function store(Request $request){
         dd($request);
     }
+
+    public function destroy($id){
+        $user =  User::destroy($id);
+        return response()->json($user);
+    }
 }
