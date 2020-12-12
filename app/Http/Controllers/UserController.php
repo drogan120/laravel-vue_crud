@@ -45,4 +45,9 @@ class UserController extends Controller
 
         return response()->json($user);
     }
+
+    public function search($name){
+        $user = User::where('id','%'.$name.'%');
+        return response()->json($user);
+    }
 }

@@ -2165,10 +2165,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      "delete": [],
+      keyword: '',
       users: []
     };
   },
@@ -2225,6 +2228,44 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             }
           }
         }, _callee2);
+      }))();
+    },
+    searchUser: function searchUser(name) {
+      var _this3 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                if (!(name != '')) {
+                  _context3.next = 6;
+                  break;
+                }
+
+                console.log('searching');
+                _context3.next = 4;
+                return axios.get("/api/users/name/".concat(name)).then(function (res) {
+                  return _this3.users = res.data;
+                })["catch"](function (err) {
+                  return console.log(err);
+                });
+
+              case 4:
+                _context3.next = 8;
+                break;
+
+              case 6:
+                console.log('get all list');
+
+                _this3.showUsers();
+
+              case 8:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3);
       }))();
     }
   }
@@ -38820,9 +38861,7 @@ var render = function() {
               ],
               1
             )
-          ]),
-          _vm._v(" "),
-          _vm._m(2)
+          ])
         ]
       )
     ]
@@ -38860,26 +38899,6 @@ var staticRenderFns = [
       },
       [_c("span", { staticClass: "navbar-toggler-icon" })]
     )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("form", { staticClass: "form-inline my-2 my-lg-0" }, [
-      _c("input", {
-        staticClass: "form-control mr-sm-2",
-        attrs: { type: "search", placeholder: "Search", "aria-label": "Search" }
-      }),
-      _vm._v(" "),
-      _c(
-        "button",
-        {
-          staticClass: "btn btn-outline-success my-2 my-sm-0",
-          attrs: { type: "submit" }
-        },
-        [_vm._v("\n                Search\n            ")]
-      )
-    ])
   }
 ]
 render._withStripped = true
@@ -39177,6 +39196,33 @@ var render = function() {
             _vm._v("Users List")
           ]),
           _vm._v(" "),
+          _c("div", { staticClass: "form-group" }, [
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.keyword,
+                  expression: "keyword"
+                }
+              ],
+              staticClass: "form-control",
+              attrs: { type: "text", placeholder: "Search ...." },
+              domProps: { value: _vm.keyword },
+              on: {
+                keyup: function($event) {
+                  return _vm.searchUser(_vm.keyword)
+                },
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.keyword = $event.target.value
+                }
+              }
+            })
+          ]),
+          _vm._v(" "),
           _c(
             "router-link",
             {
@@ -39228,7 +39274,7 @@ var render = function() {
                       },
                       [
                         _c("input", {
-                          attrs: { type: "text", name: "id" },
+                          attrs: { type: "hidden", name: "id" },
                           domProps: { value: user.id }
                         }),
                         _vm._v(" "),

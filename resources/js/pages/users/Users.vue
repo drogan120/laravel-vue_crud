@@ -3,6 +3,9 @@
     <div class="card shadow">
       <div class="card-body">
         <h4 class="text-secondary text-center mt-3 mb-3">Users List</h4>
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder="Search ...." @keyup="searchUser(keyword)" v-model="keyword" />
+        </div>
         <router-link to="/new/users" class="btn btn-info text-light mt-3 mb-3"
           >New User</router-link
         >
@@ -31,7 +34,7 @@
               </td>
               <td>
                 <form v-on:submit.prevent>
-                  <input type="text" name="id" :value="user.id" />
+                  <input type="hidden" name="id" :value="user.id" />
                   <button
                     type="submit"
                     @click="deleteUser(user.id)"
@@ -53,7 +56,7 @@
 export default {
   data () {
     return {
-      delete: [],
+      keyword: '',
       users: [],
     }
   },
@@ -71,8 +74,19 @@ export default {
     },
     async deleteUser (id) {
       await axios.delete(`/api/users/${id}`)
-        .then((res) => { alert(`data has been deleted`) ;this.showUsers() })
+        .then((res) => { alert(`data has been deleted`); this.showUsers() })
         .catch(err => console.log(err))
+    },
+    async searchUser (name) {
+     if(name != ''){
+       console.log('searching')
+        await axios.get(`/api/users/name/${name}`)
+        .then((res) => this.users = res.data)
+        .catch(err => console.log(err))
+     }else{
+       console.log('get all list')
+       this.showUsers()
+     }
     }
   }
 }
